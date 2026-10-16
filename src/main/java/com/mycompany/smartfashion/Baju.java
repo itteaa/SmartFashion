@@ -1,45 +1,27 @@
+
 package com.mycompany.smartfashion;
 
-public class Baju extends Produk {
+public class Baju extends Produk
+        implements DapatDiskon, DapatDitukar {
 
-    // Field khusus Baju
     private String ukuran;
     private String jenisBaju;
-
-    // ==============================
-    // CONSTRUCTOR
-    // ==============================
 
     public Baju(String kodeProduk, String namaProduk,
                 double harga, int stok,
                 String ukuran, String jenisBaju) {
 
-        // Memanggil constructor superclass
         super(kodeProduk, namaProduk, harga, stok);
-
-        // penggunaan this
         this.ukuran = ukuran;
         this.jenisBaju = jenisBaju;
     }
 
-    // ==============================
-    // GETTER
-    // ==============================
-
+    // Getter dan Setter Ukuran
     public String getUkuran() {
-        return this.ukuran;
+        return ukuran;
     }
-
-    public String getJenisBaju() {
-        return this.jenisBaju;
-    }
-
-    // ==============================
-    // SETTER + VALIDASI
-    // ==============================
 
     public void setUkuran(String ukuran) {
-
         if (ukuran != null && !ukuran.trim().isEmpty()) {
             this.ukuran = ukuran;
         } else {
@@ -47,8 +29,12 @@ public class Baju extends Produk {
         }
     }
 
-    public void setJenisBaju(String jenisBaju) {
+    // Getter dan Setter Jenis Baju
+    public String getJenisBaju() {
+        return jenisBaju;
+    }
 
+    public void setJenisBaju(String jenisBaju) {
         if (jenisBaju != null && !jenisBaju.trim().isEmpty()) {
             this.jenisBaju = jenisBaju;
         } else {
@@ -56,18 +42,27 @@ public class Baju extends Produk {
         }
     }
 
-    // ==============================
-    // METHOD OVERRIDING
-    // ==============================
-
+    // Override abstract method dari Produk
     @Override
-    public void tampilkanInfo() {
-
-        // Memanggil method milik superclass
-        super.tampilkanInfo();
-
+    public void tampilkanDetailKhusus() {
         System.out.println("Jenis Produk: Baju");
         System.out.println("Ukuran      : " + ukuran);
         System.out.println("Jenis Baju  : " + jenisBaju);
+    }
+
+    // Implementasi interface DapatDiskon
+    @Override
+    public double hitungDiskon() {
+        return getHarga() * 0.10;
+    }
+
+    // Implementasi interface DapatDitukar
+    @Override
+    public void prosesPenukaran() {
+        System.out.println("Penukaran baju dapat diproses.");
+        System.out.println("Produk: " + getNamaProduk());
+        System.out.println(
+                "Silakan ikuti ketentuan penukaran toko."
+        );
     }
 }

@@ -1,63 +1,32 @@
+
 package com.mycompany.smartfashion;
 
-public class Produk {
+import java.util.Locale;
 
-    // ==============================
-    // FIELD / ATRIBUT
-    // Encapsulation menggunakan private
-    // ==============================
+public abstract class Produk {
 
     private String kodeProduk;
     private String namaProduk;
     private double harga;
     private int stok;
 
-    // Static untuk menghitung total objek Produk
     private static int totalProduk = 0;
-
-    // ==============================
-    // CONSTRUCTOR
-    // ==============================
 
     public Produk(String kodeProduk, String namaProduk,
                   double harga, int stok) {
-
-        // penggunaan keyword this
         this.kodeProduk = kodeProduk;
         this.namaProduk = namaProduk;
         this.harga = harga;
         this.stok = stok;
-
-        // static counter
         totalProduk++;
     }
 
-    // ==============================
-    // GETTER
-    // ==============================
-
+    // Getter dan Setter Kode Produk
     public String getKodeProduk() {
-        return this.kodeProduk;
+        return kodeProduk;
     }
-
-    public String getNamaProduk() {
-        return this.namaProduk;
-    }
-
-    public double getHarga() {
-        return this.harga;
-    }
-
-    public int getStok() {
-        return this.stok;
-    }
-
-    // ==============================
-    // SETTER + VALIDASI
-    // ==============================
 
     public void setKodeProduk(String kodeProduk) {
-
         if (kodeProduk != null && !kodeProduk.trim().isEmpty()) {
             this.kodeProduk = kodeProduk;
         } else {
@@ -65,8 +34,12 @@ public class Produk {
         }
     }
 
-    public void setNamaProduk(String namaProduk) {
+    // Getter dan Setter Nama Produk
+    public String getNamaProduk() {
+        return namaProduk;
+    }
 
+    public void setNamaProduk(String namaProduk) {
         if (namaProduk != null && !namaProduk.trim().isEmpty()) {
             this.namaProduk = namaProduk;
         } else {
@@ -74,8 +47,12 @@ public class Produk {
         }
     }
 
-    public void setHarga(double harga) {
+    // Getter dan Setter Harga
+    public double getHarga() {
+        return harga;
+    }
 
+    public void setHarga(double harga) {
         if (harga >= 0) {
             this.harga = harga;
         } else {
@@ -83,8 +60,12 @@ public class Produk {
         }
     }
 
-    public void setStok(int stok) {
+    // Getter dan Setter Stok
+    public int getStok() {
+        return stok;
+    }
 
+    public void setStok(int stok) {
         if (stok >= 0) {
             this.stok = stok;
         } else {
@@ -92,39 +73,32 @@ public class Produk {
         }
     }
 
-    // ==============================
-    // STATIC METHOD
-    // ==============================
-
+    // Menghitung jumlah objek produk
     public static int getTotalProduk() {
         return totalProduk;
     }
 
-    // ==============================
-    // METHOD
-    // ==============================
+    // Abstract method yang wajib di-override
+    // oleh setiap subclass
+    public abstract void tampilkanDetailKhusus();
 
+    // Menampilkan informasi produk
     public void tampilkanInfo() {
-
         System.out.println("Kode Produk : " + kodeProduk);
         System.out.println("Nama Produk : " + namaProduk);
-        System.out.printf("Harga       : Rp%,.0f%n", harga);
+        System.out.println("Harga       : Rp" + harga);
         System.out.println("Stok        : " + stok);
+
+        tampilkanDetailKhusus();
     }
 
-    // ==============================
-    // METHOD OVERLOADING
-    // ==============================
-
-    // Pencarian berdasarkan nama
+    // Method overloading untuk mencari produk
     public boolean cariProduk(String nama) {
-
-        return this.namaProduk.equalsIgnoreCase(nama);
+        return namaProduk.toLowerCase(Locale.ROOT)
+                .contains(nama.toLowerCase(Locale.ROOT));
     }
 
-    // Pencarian berdasarkan harga
     public boolean cariProduk(double harga) {
-
         return this.harga == harga;
     }
 }

@@ -1,45 +1,26 @@
+
 package com.mycompany.smartfashion;
 
-public class Celana extends Produk {
+public class Celana extends Produk implements DapatDiskon {
 
-    // Field khusus Celana
     private String ukuran;
     private String jenisCelana;
-
-    // ==============================
-    // CONSTRUCTOR
-    // ==============================
 
     public Celana(String kodeProduk, String namaProduk,
                   double harga, int stok,
                   String ukuran, String jenisCelana) {
 
-        // Memanggil constructor superclass
         super(kodeProduk, namaProduk, harga, stok);
-
-        // penggunaan this
         this.ukuran = ukuran;
         this.jenisCelana = jenisCelana;
     }
 
-    // ==============================
-    // GETTER
-    // ==============================
-
+    // Getter dan Setter Ukuran
     public String getUkuran() {
-        return this.ukuran;
+        return ukuran;
     }
-
-    public String getJenisCelana() {
-        return this.jenisCelana;
-    }
-
-    // ==============================
-    // SETTER + VALIDASI
-    // ==============================
 
     public void setUkuran(String ukuran) {
-
         if (ukuran != null && !ukuran.trim().isEmpty()) {
             this.ukuran = ukuran;
         } else {
@@ -47,8 +28,12 @@ public class Celana extends Produk {
         }
     }
 
-    public void setJenisCelana(String jenisCelana) {
+    // Getter dan Setter Jenis Celana
+    public String getJenisCelana() {
+        return jenisCelana;
+    }
 
+    public void setJenisCelana(String jenisCelana) {
         if (jenisCelana != null && !jenisCelana.trim().isEmpty()) {
             this.jenisCelana = jenisCelana;
         } else {
@@ -56,18 +41,17 @@ public class Celana extends Produk {
         }
     }
 
-    // ==============================
-    // METHOD OVERRIDING
-    // ==============================
-
+    // Override abstract method dari Produk
     @Override
-    public void tampilkanInfo() {
-
-        // Memanggil method superclass
-        super.tampilkanInfo();
-
+    public void tampilkanDetailKhusus() {
         System.out.println("Jenis Produk: Celana");
         System.out.println("Ukuran      : " + ukuran);
         System.out.println("Jenis Celana: " + jenisCelana);
+    }
+
+    // Implementasi interface DapatDiskon
+    @Override
+    public double hitungDiskon() {
+        return getHarga() * 0.05;
     }
 }
